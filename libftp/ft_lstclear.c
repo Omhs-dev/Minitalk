@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 05:12:08 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/06/02 02:04:55 by ohamadou         ###   ########.fr       */
+/*   Created: 2022/12/15 16:25:07 by ohamadou          #+#    #+#             */
+/*   Updated: 2023/05/30 13:57:37 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "./includes/libft.h"
 
-# include "../libftp/includes/libft.h"
-# include "../libftp/includes/ft_printf.h"
-# include <signal.h>
+void	ft_lstclear(t_list **lst, void (*del)(void*))
+{
+	t_list	*ptr;
 
-#endif
+	ptr = NULL;
+	if (*lst == NULL)
+		return ;
+	while (*lst != NULL)
+	{
+		ptr = *lst;
+		(*lst) = (*lst)-> next;
+		del(ptr-> content);
+		free(ptr);
+	}
+}

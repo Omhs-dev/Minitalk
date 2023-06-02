@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:08:07 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/05/30 10:10:18 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:03:45 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,26 @@ static void	args_bits(int pid, char c)
 	}
 }
 
+static void	sigs(int pid)
+{
+	if (kill(pid, 0))
+	{
+		ft_printf("Wrong PID\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	int			pid;
 	int			len;
 	static int	i;
 
-	len = ft_strlen(argv[2]);
 	if (argc == 3)
 	{
+		len = ft_strlen(argv[2]);
 		pid = ft_atoi(argv[1]);
+		sigs(pid);
 		ft_printf("Message sent with %i characters\n", ft_strlen(argv[2]));
 		while (i < len)
 		{
@@ -63,8 +73,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_printf("Wrong format\n");
-		ft_printf("Try: ./client <PID> <MESSAGE>\n");
+		ft_printf("Wrong format : [ Try: ./client <PID> <MESSAGE> ]\n");
 		return (1);
 	}
 	return (0);

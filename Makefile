@@ -2,7 +2,7 @@ NAME = client
 
 NAMES = server
 
-PRINTF = libftprintf.a
+# PRINTF = libftprintf.a
 
 LIBFT = libft.a
 
@@ -24,36 +24,31 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME) $(NAMES)
 
-$(NAME):
-		@make clean -C libft
-		@make -C printf
-		@${CC} $(FLAGS) $(SRC) libft/$(LIBFT) printf/$(PRINTF) -o $(NAME)
+$(NAME): $(OBJ)
+		@make all -C libftp
+		@${CC} $(FLAGS) $(SRC) libftp/$(LIBFT) -o $(NAME)
 
-$(NAMES):
-		@make clean -C libft
-		@make -C printf
-		@${CC} $(FLAGS) $(SRCS) libft/$(LIBFT) printf/$(PRINTF) -o $(NAMES)
+$(NAMES): $(OBJS)
+		@make all -C libftp
+		@${CC} $(FLAGS) $(SRCS) libftp/$(LIBFT) -o $(NAMES)
 
 
 clean:
 		@$(RM) $(OBJ)
 		@$(RM) $(OBJS)
-		make clean -C libft
-		make clean -C printf
+		make clean -C libftp
 
 fclean: clean
-		make clean -C libft
-		make clean -C printf
+		make clean -C libftp
 		$(RM) $(NAME)
 		$(RM) $(NAMES)
-		$(RM) $(PRINTF)
 		$(RM) $(LIBFT)
 
 re: fclean all
 
 bonus : clean
-	@make -C printf
-	@${CC} $(FLAGS) $(SRC) libft/$(LIBFT) printf/$(PRINTF) -o $(NAME)
-	@${CC} $(FLAGS) $(SRCS) libft/$(LIBFT) printf/$(PRINTF) -o $(NAMES)
+	@make -C libft
+	@${CC} $(FLAGS) $(SRC) libftp/$(LIBFT) -o $(NAME)
+	@${CC} $(FLAGS) $(SRCS) libftp/$(LIBFT) -o $(NAMES)
 
 .PHONY : all clean fclean re
